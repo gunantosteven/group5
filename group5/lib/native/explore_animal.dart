@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:group5/filter_view.dart';
+import 'package:group5/native/filter_animal.dart';
 
 class ExploreAnimal extends StatefulWidget {
   ExploreAnimal({Key key}) : super(key: key);
@@ -36,7 +36,7 @@ class _ExploreAnimalState extends State<ExploreAnimal> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => FilterView()),
+                    MaterialPageRoute(builder: (context) => FilterAnimal()),
                   );
                 },
                 child: Icon(

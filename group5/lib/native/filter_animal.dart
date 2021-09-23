@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FilterView extends StatefulWidget {
-  const FilterView({Key key}) : super(key: key);
+class FilterAnimal extends StatefulWidget {
+  const FilterAnimal({Key key}) : super(key: key);
 
   @override
-  _FilterViewState createState() => _FilterViewState();
+  _FilterAnimalState createState() => _FilterAnimalState();
 }
 
-class _FilterViewState extends State<FilterView> {
+class _FilterAnimalState extends State<FilterAnimal> {
   List<String> species = <String>["River Otters"];
   String selectedSpecies = "River Otters";
 
