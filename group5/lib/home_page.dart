@@ -145,6 +145,11 @@ class _HomePageState extends State<HomePage> {
     return MapOptions(
       center: center,
       interactive: true,
+      onTap: (LatLng){
+        animals.forEach((element) {
+          element.showThumbnail = false;
+        });
+      },
       onPositionChanged: (MapPosition pos, bool gesture) {},
     );
   }

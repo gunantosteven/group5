@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:group5/home_page.dart';
+import 'package:group5/splash_page.dart';
 
 List<CameraDescription> cameras;
 CameraController controller;
@@ -9,7 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     title: 'Animal Nearby',
-    home: HomePage(),
+    home: SplashPage(),
   ));
 }
 
