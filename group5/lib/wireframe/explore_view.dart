@@ -17,9 +17,31 @@ class _ExploreViewState extends State<ExploreView> {
           MaterialPageRoute(builder: (context) => DetailExploreView()),
         );
       },
-      child: Image.asset(
-        "images/explore.jpg",
-        fit: BoxFit.fill,
+      child: Container(
+        color: Color(0xffF2EEE5),
+        child: Stack(
+          children: [
+            ListView(
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.vertical, // <-- Like so
+              children: <Widget>[
+                Positioned.fill(
+                  child: Image.asset(
+                    "images/explore.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset(
+                "images/bottom_menu.png",
+                fit: BoxFit.fill,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

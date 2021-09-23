@@ -17,9 +17,20 @@ class _Summary1ViewState extends State<Summary1View> {
           MaterialPageRoute(builder: (context) => Summary2View()),
         );
       },
-      child: Image.asset(
-        "images/Summary1.jpg",
-        fit: BoxFit.fill,
+      child: Container(
+        color: Color(0xffF2EEE5),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          scrollDirection: Axis.vertical, // <-- Like so
+          children: <Widget>[
+            Positioned.fill(
+              child: Image.asset(
+                "images/Summary1.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

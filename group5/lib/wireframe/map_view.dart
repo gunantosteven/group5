@@ -17,9 +17,20 @@ class _MapViewState extends State<MapView> {
           MaterialPageRoute(builder: (context) => CameraView()),
         );
       },
-      child: Image.asset(
-        "images/map.jpg",
-        fit: BoxFit.fill,
+      child: Container(
+        color: Color(0xffF2EEE5),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          scrollDirection: Axis.vertical, // <-- Like so
+          children: <Widget>[
+            Positioned.fill(
+              child: Image.asset(
+                "images/map.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

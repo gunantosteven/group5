@@ -6,19 +6,17 @@ import 'package:group5/animal_marker.dart';
 import 'package:group5/constants.dart';
 
 import 'package:group5/service.dart';
+import 'package:group5/wireframe/camera_view.dart';
 import 'package:group5/wireframe/explore_view.dart';
+import 'package:group5/wireframe/filter_view.dart';
 import 'package:latlong/latlong.dart';
 
 import 'animal.dart';
 
-
 String mapboxUrl =
     'https://api.mapbox.com/styles/v1/sharmilita/cktwjprp20u6k18s54h9g410r/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2hhcm1pbGl0YSIsImEiOiJja2UzbXhrY2IwZGl5MzBwb3BzZWE3NDZ5In0.9qw8ieM2WSWal7uqmBU7mg';
 
-
 class HomePage extends StatefulWidget {
-
-
   const HomePage({Key key}) : super(key: key);
 
   @override
@@ -26,8 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Animal> animals = [
-  ];
+  List<Animal> animals = [];
 
   @override
   void initState() {
@@ -38,21 +35,18 @@ class _HomePageState extends State<HomePage> {
         await loadData();
       });
     });
-
-
   }
 
   Future<void> loadData() async {
     Service service = Service();
     animals = await service.loadAnimals();
-    setState(() {
-
-    });
+    setState(() {});
 
     Future<void>.delayed(Duration(seconds: 1), () {
       //_mapController.move(LatLng(animals[0].lat, animals[0].lng), 18);
     });
   }
+
   MapController _mapController = MapController();
 
   @override
@@ -60,9 +54,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-
-          });
+          setState(() {});
         },
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
@@ -71,13 +63,69 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           FlutterMap(
-          mapController: _mapController,
-          options: _mapOptions,
-          layers: <LayerOptions>[
-            _tileLayerOptions,
-            _animalLayerOptions()
-          ],
-        )],
+            mapController: _mapController,
+            options: _mapOptions,
+            layers: <LayerOptions>[_tileLayerOptions, _animalLayerOptions()],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 64.0, 25.0, 0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ExploreView()),
+                      );
+                    },
+                    child: Image.asset("images/binoculars.png"),
+                    style: ElevatedButton.styleFrom(
+                      shape: CircleBorder(),
+                      padding: EdgeInsets.all(15),
+                      primary: Color(0xffF5F4EF),
+                      minimumSize: Size(48.0, 48.0),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => FilterView()),
+                      );
+                    },
+                    child: Image.asset("images/filter.png"),
+                    style: ElevatedButton.styleFrom(
+                      shape: CircleBorder(),
+                      padding: EdgeInsets.all(15),
+                      primary: Color(0xffF5F4EF),
+                      minimumSize: Size(48.0, 48.0),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CameraView()),
+                      );
+                    },
+                    child: Image.asset("images/camera.png"),
+                    style: ElevatedButton.styleFrom(
+                      shape: CircleBorder(),
+                      padding: EdgeInsets.all(15),
+                      primary: Color(0xffF5F4EF),
+                      minimumSize: Size(48.0, 48.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -91,7 +139,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   LatLng center = LatLng(1.347218, 103.840751);
 
   MapOptions get _mapOptions {
@@ -102,33 +149,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   List<Marker> _markers() {
     if (animals.isEmpty)
       return [];
     else
-      return animals.map((e) => createMarker(e, () {
-        setState(() {
-          int index = animals.indexOf(e);
-          animals[index].onExploreTap = () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ExploreView()),
-            );
-          };
-          animals.forEach((element) {
-            if (element == e) {
-              element.showThumbnail = !animals[index].showThumbnail;
-            }else {
-              element.showThumbnail = false;
-            }
-          });
-
-        });
-      })).toList();
+      return animals
+          .map((e) => createMarker(e, () {
+                setState(() {
+                  int index = animals.indexOf(e);
+                  animals[index].onExploreTap = () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ExploreView()),
+                    );
+                  };
+                  animals.forEach((element) {
+                    if (element == e) {
+                      element.showThumbnail = !animals[index].showThumbnail;
+                    } else {
+                      element.showThumbnail = false;
+                    }
+                  });
+                });
+              }))
+          .toList();
   }
 
   Marker createMarker(Animal animal, VoidCallback ontap) {
-
     return Marker(
       width: 350,
       height: 220,
@@ -147,7 +193,4 @@ class _HomePageState extends State<HomePage> {
   MarkerLayerOptions _animalLayerOptions() {
     return MarkerLayerOptions(markers: _markers());
   }
-
 }
-
-

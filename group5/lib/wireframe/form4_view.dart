@@ -17,9 +17,20 @@ class _Form4ViewState extends State<Form4View> {
           MaterialPageRoute(builder: (context) => Summary1View()),
         );
       },
-      child: Image.asset(
-        "images/Form4.jpg",
-        fit: BoxFit.fill,
+      child: Container(
+        color: Color(0xffF2EEE5),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          scrollDirection: Axis.vertical, // <-- Like so
+          children: <Widget>[
+            Positioned.fill(
+              child: Image.asset(
+                "images/Form4.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
