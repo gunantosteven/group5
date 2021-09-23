@@ -146,9 +146,11 @@ class _HomePageState extends State<HomePage> {
       center: center,
       interactive: true,
       onTap: (LatLng){
-        animals.forEach((element) {
-          element.showThumbnail = false;
-        });
+       setState(() {
+         animals.forEach((element) {
+           element.showThumbnail = false;
+         });
+       });
       },
       onPositionChanged: (MapPosition pos, bool gesture) {},
     );
