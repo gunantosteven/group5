@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:group5/add_animal.dart';
 import 'package:group5/animal_marker.dart';
+import 'package:group5/constants.dart';
 
 import 'package:group5/service.dart';
 import 'package:group5/wireframe/explore_view.dart';
@@ -44,13 +45,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadData() async {
     Service service = Service();
     animals = await service.loadAnimals();
-    print('ANIMALS: ${animals.length}');
     setState(() {
 
     });
 
     Future<void>.delayed(Duration(seconds: 1), () {
-      _mapController.move(LatLng(animals[0].lat, animals[0].lng), 18);
+      //_mapController.move(LatLng(animals[0].lat, animals[0].lng), 18);
     });
   }
   MapController _mapController = MapController();
@@ -60,8 +60,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          /*Navigator.push(
-              context, MaterialPageRoute(builder: (_) => AddAnimalPage()));*/
           setState(() {
 
           });
@@ -88,14 +86,13 @@ class _HomePageState extends State<HomePage> {
   TileLayerOptions get _tileLayerOptions {
     return TileLayerOptions(
       urlTemplate: mapboxUrl,
-      backgroundColor: Colors.brown,
+      backgroundColor: mainColor,
       tileProvider: const CachedNetworkTileProvider(),
     );
   }
 
 
-
-  LatLng center = LatLng(1.3702218, 103.8652942);
+  LatLng center = LatLng(1.347218, 103.840751);
 
   MapOptions get _mapOptions {
     return MapOptions(
@@ -118,7 +115,14 @@ class _HomePageState extends State<HomePage> {
               MaterialPageRoute(builder: (context) => ExploreView()),
             );
           };
-          animals[index].showThumbnail = !animals[index].showThumbnail;
+          animals.forEach((element) {
+            if (element == e) {
+              element.showThumbnail = !animals[index].showThumbnail;
+            }else {
+              element.showThumbnail = false;
+            }
+          });
+
         });
       })).toList();
   }

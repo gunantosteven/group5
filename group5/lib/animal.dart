@@ -10,6 +10,7 @@ class Animal {
   final String image;
 
   bool showThumbnail = false;
+  VoidCallback onTap;
   VoidCallback onExploreTap;
 
   Animal({this.name, this.species, this.description, this.lat, this.lng, this.image});
